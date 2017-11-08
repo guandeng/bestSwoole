@@ -30,12 +30,11 @@ function read()
 
 function copy_dir($src, $dst, $force = false)
 {
-    $dir = opendir($src);
-
     if (file_exists($dst) && $force == false) {
         print_r("$dst 目录已存在（跳过）\n");
         return;
     }
+    $dir = opendir($src);
     @mkdir($dst);
     while (false !== ($file = readdir($dir))) {
         if (($file != '.') && ($file != '..')) {

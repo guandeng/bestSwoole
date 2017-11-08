@@ -26,7 +26,7 @@ class Start
 			exit("please use start|stop|kill|reload|restart\n");
 		}
 		$command = trim($argv[1]);
-		$options = $argv[2];
+		$options = $argv[2]??'';
 		switch($command){
 		case 'start':
 			if($options === '-d'){
