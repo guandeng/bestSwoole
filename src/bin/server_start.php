@@ -1,3 +1,3 @@
 <?php
-require_once 'set.php';
+require_once 'define.php';
 Server\Start::run();	
