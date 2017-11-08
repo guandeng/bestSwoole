@@ -2,7 +2,10 @@
 	"name":"guandeng/bestswoole",
 	"authors":[
 		{
-			"name":"guandeng"
+			"name":"guandeng",
+            "email":"guandeng@hotmail.com",
+            "homepage":"https://github.com/guandeng"
+
 		}
 	],
 	"require":{
