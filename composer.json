@@ -1,0 +1,14 @@
+{
+	"name":"guandeng/bestSwoole",
+	"authors":[
+		{
+			"name":"guandeng"
+		}
+	],
+	"require":{
+		"php" : ">=7.0"
+	},
+    "autoload":{
+		"psr-4":{}
+	}
+}
