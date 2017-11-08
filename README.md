@@ -6,4 +6,5 @@
 > 运行脚手架工具安装框架 php vendor/tmtbe/swooledistributed/src/Install.php
 
 #### 联络
--  作者:270206232
+- 作者:270206232
+- 邮箱:guandeng@Hotmail.com
