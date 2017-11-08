@@ -6,12 +6,13 @@
 		}
 	],
 	"require":{
-
-		"php" : ">=7.0"
+		"php" : ">=7.0",
+        "monolog/monolog": "1.22.1"
 	},
     "autoload":{
 		"psr-4":{
-			"app\\":"app"
+			"app\\":"app",
+            "Server\\":"src/Server"
 		}
 	}
 }
