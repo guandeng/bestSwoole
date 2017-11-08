@@ -1,2 +1,2 @@
 #### bestSwoole
-> bestSwoole基于Swoole开发，保持Swoole原有特性，不做过多修改
+> bestSwoole基于Swoole开发，最大限度保留Swoole原有特性
