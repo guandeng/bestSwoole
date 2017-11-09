@@ -3,7 +3,10 @@
 
 #### 安装
 > 安装代码 composer require guandeng/bestswoole:dev-master
+
 > 运行脚手架工具安装框架 php vendor/tmtbe/swooledistributed/src/Install.php
+
+> 到bin目录下  php swoole_server.php start
 
 #### 联络
 - 作者:270206232
