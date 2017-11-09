@@ -1,7 +1,7 @@
 <?php
 namespace Server; 
 
-class SwooleSever
+class SwooleServer
 {
 	protected static $_instance = null;
 	private $listen; 
@@ -24,12 +24,12 @@ class SwooleSever
 		$this->workNum = SwooleConfig::initialize()->load('SERVER.CONFIG.WORK_NUM');
 		$this->taskWorkNum = SwooleConfig::initialize()->load('SERVER.CONFIG.TASK_WORK_NUM');
 		$this->conf = SwooleConfig::initialize()->load('SERVER.CONFIG');
+         $this->server = new \swoole_server('127.0.0.1',9501);
 	}
 
 	public function start()
 	{
-		//new \swoole_server();
-		$this->setServer($this->conf);
+		//$this->set($this->conf);
 		$this->server->on('start',[$this,'onStart']);
 		$this->server->on('workerStart',[$this,'onWorkerStart']);
 		$this->server->on('workerStop',[$this,'onWorkerStop']);
@@ -40,10 +40,6 @@ class SwooleSever
 		$this->server->start();
 	}
 
-	public function setServer($conf)
-	{
-		
-	}
 
 	public function onStart(swoole_server $server)
 	{
@@ -59,6 +55,11 @@ class SwooleSever
 	{
 		
 	}
+
+    public function onTask(swoole_server $server,int $task_id,int $worker_id,$data)
+    {
+        return ;
+    }
 
 	public function onReceive(swoole_server $server,int $fd,int $reactor_id,string $data)
 	{

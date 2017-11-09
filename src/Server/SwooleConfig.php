@@ -2,7 +2,7 @@
 
 namespace Server;
 
-class Config
+class SwooleConfig
 {
 	protected static $_instance = null;
 
@@ -13,6 +13,11 @@ class Config
 		}
 		return self::$_instance;
 	}
+
+    public function load()
+    {
+
+    }
 
 	private function __construct()
 	{
