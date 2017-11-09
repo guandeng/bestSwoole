@@ -49,5 +49,6 @@ class Start
 	{
 		echo "start success\n";
 		echo "PHP version",SWOOLE_VERSION."\n";
+		SwooleSever::initialize()->start();
 	}
 }
