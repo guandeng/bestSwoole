@@ -7,7 +7,7 @@ class SwooleServer
 	private $listen; 
 	private $port;
 	private $taskWorkerNum;
-	private $conf;
+	private $conf = [];
 
 	public static function initialize()
 	{

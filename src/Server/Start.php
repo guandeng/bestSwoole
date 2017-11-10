@@ -14,7 +14,7 @@ class Start
 
 	public static function checkEnv()
 	{
-		if(substr(php_sapi_name(), 0, 3) != 'cli'){
+		if(PHP_SAPI !== 'cli'){
 			exit("command line mode is not cli \n");
 		}
 	}
