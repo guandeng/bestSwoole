@@ -10,7 +10,8 @@
 	],
 	"require":{
 		"php" : ">=7.0",
-        "monolog/monolog": "1.22.1"
+        "monolog/monolog": "1.22.1",
+		"topthink/think-orm":"~0.2"
 	},
     "autoload":{
 		"psr-4":{
