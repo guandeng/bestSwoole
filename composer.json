@@ -17,6 +17,9 @@
 		"psr-4":{
 			"app\\":"app",
             "Server\\":"src/Server"
-		}
+		},
+        "files": [
+            "src/Server/helpers/Common.php"
+        ]
 	}
 }
