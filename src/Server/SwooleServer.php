@@ -1,6 +1,8 @@
 <?php
 namespace Server;
 
+use Noodlehaus\Config;
+
 class SwooleServer
 {
     protected static $_instance = null;
@@ -19,7 +21,9 @@ class SwooleServer
 
     private function __construct()
     {
-        var_dump(SwooleConfig::initialize()->load('SERVER'));exit;
+        $this->conf = Config::load(getConfigDir());
+        var_dump($this->conf);
+        exit;
         $this->listen = SwooleConfig::initialize()->load('SERVER.CONFIG.LISTEN');
         $this->port = SwooleConfig::initialize()->load('SERVER.CONFIG.PORT');
         $this->workNum = SwooleConfig::initialize()->load('SERVER.CONFIG.WORK_NUM');
