@@ -27,22 +27,22 @@ class Start
 		}
 		$command = trim($argv[1]);
 		$options = $argv[2]??'';
-		switch($command){
-		case 'start':
-			if($options === '-d'){
-				self::$daemonize = true;
-			}
-			// to do;
-			break;
-		case 'stop':
-			// to do;
-			break;
-		case 'reload':
-			// to do
-			break;
-		case 'restart':
-			break;
-		}
+        switch($command){
+        case 'start':
+            if($options === '-d'){
+                self::$daemonize = true;
+            }
+            // to do;
+            break;
+        case 'stop':
+            // to do;
+            break;
+        case 'reload':
+            // to do
+            break;
+        case 'restart':
+            break;
+        }
 	}
 
 	protected static function display()
