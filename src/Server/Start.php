@@ -47,8 +47,11 @@ class Start
 
 	protected static function display()
 	{
+		echo "\033[1A\n\033[K------------------------\033[47;30m server \033[0m---------------------------\n\033[0m"."\n";
 		echo "start success\n";
-		echo "PHP version",SWOOLE_VERSION."\n";
+		echo "PHP version:",SWOOLE_VERSION."\n";
+		echo "\033[1A\n\033[K------------------------\033[47;30m server \033[0m---------------------------\n\033[0m"."\n";
 		SwooleServer::initialize()->start();
 	}
 }
+

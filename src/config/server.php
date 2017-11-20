@@ -12,6 +12,9 @@ $config = [
             'work_num'=> 4,
             'max_connection' => 50000
         ],
+		'port' => 9501,
+		'listen' => '0.0.0.0',
+		'socket_type' => SWOOLE_SOCK_TCP,
     ],
 ];
 return $config;

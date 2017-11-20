@@ -7,6 +7,7 @@ checkfile("SERVER_PATH", MY_PATH."/vendor/guandeng/bestswoole/src/Server");
 checkfile("APP_PATH", MY_PATH . "/src/app");
 checkfile("LOG_PATH", BIN_PATH . "/log");
 checkfile("PID_PATH", BIN_PATH . "/pid");
+checkfile("CONFIG_PATH", MY_PATH . "/src/config");
 
 function checkfile($name, $path)
 {
