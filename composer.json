@@ -12,7 +12,8 @@
 		"php" : ">=7.0",
         "monolog/monolog": "1.22.1",
 		"topthink/think-orm":"~0.2",
-        "hassankhan/config":"~0.11.2"
+        "hassankhan/config":"~0.11.2",
+		"graylog2/gelf-php": "~1.0"
 	},
     "autoload":{
 		"psr-4":{

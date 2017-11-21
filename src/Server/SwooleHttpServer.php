@@ -1,15 +1,9 @@
 <?php
 namespace Server;
 
-use Noodlehaus\Config;
 
-class SwooleServer
+class SwooleHttpServer extends SwooleServer
 {
-    protected static $_instance = null;
-    private $listen;
-    private $port;
-    private $taskWorkerNum;
-    private $conf = [];
 
     public static function initialize()
     {
@@ -19,10 +13,8 @@ class SwooleServer
         return self::$_instance;
     }
 
-    public function __construct()
+    private function __construct()
     {
-        $this->conf = Config::load(getConfigDir());
-        $this->server = new \swoole_http_server($this->conf->get('server.listen'), $this->conf->get('server.port'));
     }
 
     public function start()
@@ -38,16 +30,21 @@ class SwooleServer
         $this->getServer()->start();
     }
 
-    public function getServer()
-    {
-        return $this->server;
-    }
+	public function getServer()
+	{
+		return $this->server;
+	}
 
 
     public function onStart(\swoole_server $server)
     {
-        echo 'swoole http started';
+		echo 'swoole http started';
     }
+
+	public function onRequest($request,$response)
+	{
+		echo 'request';
+	}
 
     public function onWorkerStart(\swoole_server $server, int $worker_id)
     {
@@ -82,3 +79,4 @@ class SwooleServer
         // to do
     }
 }
+

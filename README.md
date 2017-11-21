@@ -8,6 +8,10 @@
 
 > 到bin目录下  php swoole_server.php start
 
+#### 主要特性
+- 1、MVC架构
+- 2、支持异步/同步/协程开发
+- 3、事件驱动异步编程模式
 #### 联络
 - 作者:270206232
 - 邮箱:guandeng@Hotmail.com
