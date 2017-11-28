@@ -2,6 +2,8 @@
 namespace Server;
 
 use Noodlehaus\Config;
+use Monolog\Logger;
+use Monolog\Handler\RotatingFileHandler;
 
 class SwooleServer
 {
@@ -23,6 +25,13 @@ class SwooleServer
     {
         $this->conf = Config::load(getConfigDir());
         $this->server = new \swoole_http_server($this->conf->get('server.listen'), $this->conf->get('server.port'));
+        $this->setLogHandler()
+        ;
+    }
+
+    public function setLogHandler()
+    {
+
     }
 
     public function start()
