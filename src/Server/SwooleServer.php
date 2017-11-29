@@ -12,6 +12,8 @@ class SwooleServer
     private $port;
     private $taskWorkerNum;
     private $conf = [];
+    public $workerId;
+    public $name;
 
     public static function initialize()
     {
@@ -31,7 +33,14 @@ class SwooleServer
 
     public function setLogHandler()
     {
-
+        $this->log = new Logger($this->conf->get('log.log_name'));
+        switch($this->conf->get('log.type')){
+            case 'file':
+            $this->log->pushHandler(new RotatingFileHandler(LOG_PATH."/".$tihs->name.".log",
+            $this->conf->get('log.file.log_max_files'),
+            $this->conf->get('log.log_level')));
+            break;
+        }
     }
 
     public function start()
@@ -60,6 +69,8 @@ class SwooleServer
 
     public function onWorkerStart(\swoole_server $server, int $worker_id)
     {
+        $this->workerId = $worker_id;
+        $this->conf = Config::load(getConfigDir());
     }
 
     public function onWorkerStop(\swoole_server $server, int $worker_id)
