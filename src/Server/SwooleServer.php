@@ -27,8 +27,9 @@ class SwooleServer
     {
         $this->conf = Config::load(getConfigDir());
         $this->server = new \swoole_http_server($this->conf->get('server.listen'), $this->conf->get('server.port'));
-        $this->setLogHandler()
-        ;
+        $this->setLogHandler();
+        register_shutdown_function([$this,'checkErrors']);
+        set_error_handler([$this,'displayErrorHandler']);
     }
 
     public function setLogHandler()
@@ -43,6 +44,11 @@ class SwooleServer
         }
     }
 
+    /**
+     * 启动服务
+     *
+     * @return void
+     */
     public function start()
     {
         $this->getServer()->on('start', [$this,'onStart']);
@@ -53,6 +59,7 @@ class SwooleServer
         $this->getServer()->on('request', [$this,'onRequest']);
         $this->getServer()->on('finish', [$this,'onFinish']);
         $this->getServer()->on('close', [$this,'onClose']);
+        $this->beforeSwooleStart();
         $this->getServer()->start();
     }
 
@@ -65,6 +72,15 @@ class SwooleServer
     public function onStart(\swoole_server $server)
     {
         echo 'swoole http started';
+    }
+    /**
+     * 启动前操作
+     *
+     * @return void
+     */
+    public function beforeSwooleStart()
+    {
+
     }
 
     public function onWorkerStart(\swoole_server $server, int $worker_id)
@@ -100,5 +116,25 @@ class SwooleServer
     private function __clone()
     {
         // to do
+    }
+
+    public function checkErrors()
+    {
+        $error = error_get_last();
+        if(isset($error['type'])){
+            if(in_array($error['type'],[E_ERROR])){
+
+            }
+        }
+    }
+
+    /**
+     * 全局监听
+     *
+     * @return void
+     */
+    public function displayErrorHandler()
+    {
+
     }
 }
