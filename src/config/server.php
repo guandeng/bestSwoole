@@ -1,4 +1,10 @@
 <?php
+/*
+ * @Author: guandeng 
+ * @Date: 2017-12-01 00:06:46 
+ * @Last Modified by: guandeng
+ * @Last Modified time: 2017-12-01 00:07:21
+ */
 
 $config = [
     'name' => 'BS',

@@ -1,5 +1,10 @@
 <?php
-
+/*
+ * @Author: guandeng 
+ * @Date: 2017-12-01 00:04:55 
+ * @Last Modified by: guandeng
+ * @Last Modified time: 2017-12-01 00:08:35
+ */
 
 $path = getcwd();
 print_r("将在当前位置创建项目，是否确定(y/n)？\n");

@@ -1,6 +1,12 @@
 <?php
-namespace Server;
+/*
+ * @Author: guandeng 
+ * @Date: 2017-12-01 00:07:50 
+ * @Last Modified by:   guandeng 
+ * @Last Modified time: 2017-12-01 00:07:50 
+ */
 
+namespace Server;
 
 class SwooleHttpServer extends SwooleServer
 {

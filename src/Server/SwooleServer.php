@@ -1,4 +1,10 @@
 <?php
+/*
+ * @Author: guandeng 
+ * @Date: 2017-12-01 00:05:15 
+ * @Last Modified by: guandeng
+ * @Last Modified time: 2017-12-01 00:08:21
+ */
 namespace Server;
 
 use Noodlehaus\Config;
@@ -57,6 +63,8 @@ class SwooleServer
         $this->getServer()->on('receive', [$this,'onReceive']);
         $this->getServer()->on('task', [$this,'onTask']);
         $this->getServer()->on('request', [$this,'onRequest']);
+        $this->getServer()->on('ManagerStart', [$this,'onManagerStart']);
+        $this->getServer()->on('ManagerStop', [$this,'onManagerStop']);
         $this->getServer()->on('finish', [$this,'onFinish']);
         $this->getServer()->on('close', [$this,'onClose']);
         $this->beforeSwooleStart();
@@ -100,6 +108,14 @@ class SwooleServer
 
     public function onReceive(\swoole_server $server, int $fd, int $reactor_id, string $data)
     {
+    }
+    public function onManageStart(\swoole_server $server)
+    {
+
+    }
+    public function onManageStop(\swoole_server $server)
+    {
+
     }
 
     public function onFinish(\swoole_server $server, int $task_id, string $data)
