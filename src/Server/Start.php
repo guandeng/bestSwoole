@@ -2,8 +2,8 @@
 /*
  * @Author: guandeng 
  * @Date: 2017-12-01 00:07:34 
- * @Last Modified by:   guandeng 
- * @Last Modified time: 2017-12-01 00:07:34 
+ * @Last Modified by: guandeng
+ * @Last Modified time: 2017-12-03 23:16:13
  */
 
 namespace Server;
@@ -12,13 +12,13 @@ class Start
 {
 	public static function run()
 	{
-		self::checkEnv();
+		self::checkSapiEnv();
 		//self::init();
 		self::parseCommand();
 		self::display();
 	}
 
-	public static function checkEnv()
+	public static function checkSapiEnv()
 	{
 		if(PHP_SAPI !== 'cli'){
 			exit("command line mode is not cli \n");
