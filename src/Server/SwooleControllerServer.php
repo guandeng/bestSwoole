@@ -6,11 +6,16 @@
  * @Last Modified time: 2017-12-03 23:00:09
  */
 
+namespace Server;
+
 abstract class SwooleControllerServer extends SwooleHttpServer
 {
     public function __construct()
     {
-
+        parent::__construc();
+        if(!checkExtension()){
+            exit(-1);
+        }
     }
 
     public function start()

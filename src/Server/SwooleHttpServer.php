@@ -19,7 +19,7 @@ abstract class SwooleHttpServer extends SwooleServer
         return self::$_instance;
     }
 
-    private function __construct()
+    public function __construct()
     {
     }
 

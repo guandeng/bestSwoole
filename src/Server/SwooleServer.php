@@ -43,7 +43,7 @@ class SwooleServer
         $this->log = new Logger($this->conf->get('log.log_name'));
         switch($this->conf->get('log.type')){
             case 'file':
-            $this->log->pushHandler(new RotatingFileHandler(LOG_PATH."/".$tihs->name.".log",
+            $this->log->pushHandler(new RotatingFileHandler(LOG_PATH."/".$this->name.".log",
             $this->conf->get('log.file.log_max_files'),
             $this->conf->get('log.log_level')));
             break;
