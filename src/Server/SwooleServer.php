@@ -32,7 +32,7 @@ class SwooleServer
     public function __construct()
     {
         $this->conf = Config::load(getConfigDir());
-        $this->server = new \swoole_http_server($this->conf->get('server.listen'), $this->conf->get('server.port'));
+        $this->server = new \swoole_server($this->conf->get('server.listen'), $this->conf->get('server.port'));
         $this->setLogHandler();
         register_shutdown_function([$this,'checkErrors']);
         set_error_handler([$this,'displayErrorHandler']);
@@ -62,9 +62,8 @@ class SwooleServer
         $this->getServer()->on('workerStop', [$this,'onWorkerStop']);
         $this->getServer()->on('receive', [$this,'onReceive']);
         $this->getServer()->on('task', [$this,'onTask']);
-        $this->getServer()->on('request', [$this,'onRequest']);
-        $this->getServer()->on('ManagerStart', [$this,'onManagerStart']);
-        $this->getServer()->on('ManagerStop', [$this,'onManagerStop']);
+        //$this->getServer()->on('ManagerStart', [$this,'onManagerStart']);
+        //$this->getServer()->on('ManagerStop', [$this,'onManagerStop']);
         $this->getServer()->on('finish', [$this,'onFinish']);
         $this->getServer()->on('close', [$this,'onClose']);
         $this->beforeSwooleStart();
@@ -79,7 +78,7 @@ class SwooleServer
 
     public function onStart(\swoole_server $server)
     {
-        echo 'swoole http started';
+        echo 'swoole server started';
     }
     /**
      * 启动前操作

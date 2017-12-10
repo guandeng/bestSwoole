@@ -6,4 +6,5 @@
  * @Last Modified time: 2017-12-01 00:06:09 
  */
 require_once 'define.php';
+new \app\AppServer();
 Server\Start::run();

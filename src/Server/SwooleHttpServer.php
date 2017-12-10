@@ -8,7 +8,7 @@
 
 namespace Server;
 
-class SwooleHttpServer extends SwooleServer
+abstract class SwooleHttpServer extends SwooleServer
 {
 
     public static function initialize()
@@ -25,26 +25,22 @@ class SwooleHttpServer extends SwooleServer
 
     public function start()
     {
-        $this->getServer()->on('start', [$this,'onStart']);
-        $this->getServer()->on('workerStart', [$this,'onWorkerStart']);
-        $this->getServer()->on('workerStop', [$this,'onWorkerStop']);
-        $this->getServer()->on('receive', [$this,'onReceive']);
-        $this->getServer()->on('task', [$this,'onTask']);
-        $this->getServer()->on('request', [$this,'onRequest']);
-        $this->getServer()->on('finish', [$this,'onFinish']);
-        $this->getServer()->on('close', [$this,'onClose']);
-        $this->getServer()->start();
+        $this->conf = Config::load(getConfigDir());
+        $this->server = new swoole_http_server($this->conf->get('server.listen'), $this->conf->get('server.port'));
+        $this->server()->on('start', [$this,'onStart']);
+        $this->server()->on('workerStart', [$this,'onWorkerStart']);
+        $this->server()->on('workerStop', [$this,'onWorkerStop']);
+        $this->server()->on('receive', [$this,'onReceive']);
+        $this->server()->on('task', [$this,'onTask']);
+        $this->server()->on('request', [$this,'onRequest']);
+        $this->server()->on('finish', [$this,'onFinish']);
+        $this->server()->on('close', [$this,'onClose']);
+        $this->server()->start();
     }
-
-	public function getServer()
-	{
-		return $this->server;
-	}
-
 
     public function onStart(\swoole_server $server)
     {
-		echo 'swoole http started';
+		echo 'swoole http server started';
     }
 
 	public function onRequest($request,$response)
