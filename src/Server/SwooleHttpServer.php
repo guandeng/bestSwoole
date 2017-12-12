@@ -2,11 +2,13 @@
 /*
  * @Author: guandeng 
  * @Date: 2017-12-01 00:07:50 
- * @Last Modified by:   guandeng 
- * @Last Modified time: 2017-12-01 00:07:50 
+ * @Last Modified by: guandeng
+ * @Last Modified time: 2017-12-12 14:58:49
  */
 
 namespace Server;
+
+use Noodlehaus\Config;
 
 abstract class SwooleHttpServer extends SwooleServer
 {
@@ -21,21 +23,22 @@ abstract class SwooleHttpServer extends SwooleServer
 
     public function __construct()
     {
+        parent::__construct(); 
     }
 
     public function start()
     {
         $this->conf = Config::load(getConfigDir());
-        $this->server = new swoole_http_server($this->conf->get('server.listen'), $this->conf->get('server.port'));
-        $this->server()->on('start', [$this,'onStart']);
-        $this->server()->on('workerStart', [$this,'onWorkerStart']);
-        $this->server()->on('workerStop', [$this,'onWorkerStop']);
-        $this->server()->on('receive', [$this,'onReceive']);
-        $this->server()->on('task', [$this,'onTask']);
-        $this->server()->on('request', [$this,'onRequest']);
-        $this->server()->on('finish', [$this,'onFinish']);
-        $this->server()->on('close', [$this,'onClose']);
-        $this->server()->start();
+        $this->server = new \swoole_http_server($this->conf->get('ports.http.socket_name'), $this->conf->get('ports.http.socket_port'));
+        $this->server->on('start', [$this,'onStart']);
+        $this->server->on('workerStart', [$this,'onWorkerStart']);
+        $this->server->on('workerStop', [$this,'onWorkerStop']);
+        $this->server->on('receive', [$this,'onReceive']);
+        $this->server->on('task', [$this,'onTask']);
+        $this->server->on('request', [$this,'onRequest']);
+        $this->server->on('finish', [$this,'onFinish']);
+        $this->server->on('close', [$this,'onClose']);
+        $this->server->start();
     }
 
     public function onStart(\swoole_server $server)
@@ -45,7 +48,7 @@ abstract class SwooleHttpServer extends SwooleServer
 
 	public function onRequest($request,$response)
 	{
-		echo 'request';
+		echo 'request'."\n";
 	}
 
     public function onWorkerStart(\swoole_server $server, int $worker_id)
@@ -81,4 +84,3 @@ abstract class SwooleHttpServer extends SwooleServer
         // to do
     }
 }
-

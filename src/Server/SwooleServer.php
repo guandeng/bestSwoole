@@ -17,22 +17,22 @@ class SwooleServer
     private $listen;
     private $port;
     private $taskWorkerNum;
-    private $conf = [];
+    public $conf = [];
     public $workerId;
     public $name;
-
+    /*
     public static function initialize()
     {
         if (is_null(self::$_instance)) {
             self::$_instance = new static();
         }
         return self::$_instance;
-    }
+    }*/
 
     public function __construct()
     {
         $this->conf = Config::load(getConfigDir());
-        $this->server = new \swoole_server($this->conf->get('server.listen'), $this->conf->get('server.port'));
+        Start::initServer($this);
         $this->setLogHandler();
         register_shutdown_function([$this,'checkErrors']);
         set_error_handler([$this,'displayErrorHandler']);
@@ -57,6 +57,7 @@ class SwooleServer
      */
     public function start()
     {
+        $this->server = new \swoole_server($this->conf->get('server.listen'), $this->conf->get('server.port'));
         $this->getServer()->on('start', [$this,'onStart']);
         $this->getServer()->on('workerStart', [$this,'onWorkerStart']);
         $this->getServer()->on('workerStop', [$this,'onWorkerStop']);

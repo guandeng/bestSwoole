@@ -12,7 +12,7 @@ abstract class SwooleControllerServer extends SwooleHttpServer
 {
     public function __construct()
     {
-        parent::__construc();
+        parent::__construct();
         if(!checkExtension()){
             exit(-1);
         }

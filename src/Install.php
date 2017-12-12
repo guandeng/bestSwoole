@@ -18,8 +18,8 @@ if (count($argv) < 2 || $argv[1] != '-y') {
 
 copy_dir(__DIR__ . "/bin", $path . "/bin", true);
 @mkdir('src');
-copy_dir(__DIR__ . "/app", $path . "/src/app");
-copy_dir(__DIR__ . "/config", $path . "/src/config");
+copy_dir(__DIR__ . "/app", $path . "/src/app",true);
+copy_dir(__DIR__ . "/config", $path . "/src/config",true);
 
 print_r("bin目录下start_swoole_serverphp是启动文件，define.php可以自定义目录配置，祝君使用愉快。\n");
 
