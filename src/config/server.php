@@ -11,17 +11,19 @@ $config = [
     'server' => [
         'send_use_task_num' => 20,
         'set' => [
-            'log_file' => LOG_PATH . '/swoole.log',
-            'pid' => PID_PATH . '/server.pid',
-            'log_level' => 5,
+            'max_connection' =>10000,
             'reactor_num' => 4,
             'worker_num' => 4,
-            'task_worker_num'=> 10,
+            'log_file' => LOG_PATH . '/swoole.log',
+            'pid' => PID_PATH . '/server.pid',
+            'heartbeat_check_interval' =>30,
+            'heartbeat_idle_time'=>120,
+            'log_level' => 5,
+            'reactor_num' => 4,
+            'task_worker_num' => 10,
             'max_connection' => 50000,
+            'dispatch_mode' => 2,
         ],
-        'port' => 9501,
-        'listen' => '0.0.0.0',
-        'socket_type' => SWOOLE_SOCK_TCP,
     ],
 ];
 return $config;

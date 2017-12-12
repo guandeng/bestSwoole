@@ -20,7 +20,7 @@ function checkExtension()
     if (version_compare(PHP_VERSION, '7.0.0', '<')) {
         $status = false;
     }
-    if (version_compare(SWOOLE_VERSION, '1.9.1', '<')) {
+    if (version_compare(SWOOLE_VERSION, '1.9.18', '<')) {
         $status = false;
     }
     return $status;

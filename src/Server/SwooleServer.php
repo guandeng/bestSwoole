@@ -1,15 +1,15 @@
 <?php
 /*
- * @Author: guandeng 
- * @Date: 2017-12-01 00:05:15 
+ * @Author: guandeng
+ * @Date: 2017-12-01 00:05:15
  * @Last Modified by: guandeng
  * @Last Modified time: 2017-12-01 00:08:21
  */
 namespace Server;
 
-use Noodlehaus\Config;
-use Monolog\Logger;
 use Monolog\Handler\RotatingFileHandler;
+use Monolog\Logger;
+use Noodlehaus\Config;
 
 class SwooleServer
 {
@@ -23,10 +23,10 @@ class SwooleServer
     /*
     public static function initialize()
     {
-        if (is_null(self::$_instance)) {
-            self::$_instance = new static();
-        }
-        return self::$_instance;
+    if (is_null(self::$_instance)) {
+    self::$_instance = new static();
+    }
+    return self::$_instance;
     }*/
 
     public function __construct()
@@ -34,19 +34,19 @@ class SwooleServer
         $this->conf = Config::load(getConfigDir());
         Start::initServer($this);
         $this->setLogHandler();
-        register_shutdown_function([$this,'checkErrors']);
-        set_error_handler([$this,'displayErrorHandler']);
+        register_shutdown_function([$this, 'checkErrors']);
+        set_error_handler([$this, 'displayErrorHandler']);
     }
 
     public function setLogHandler()
     {
         $this->log = new Logger($this->conf->get('log.log_name'));
-        switch($this->conf->get('log.type')){
+        switch ($this->conf->get('log.type')) {
             case 'file':
-            $this->log->pushHandler(new RotatingFileHandler(LOG_PATH."/".$this->name.".log",
-            $this->conf->get('log.file.log_max_files'),
-            $this->conf->get('log.log_level')));
-            break;
+                $this->log->pushHandler(new RotatingFileHandler(LOG_PATH . "/" . $this->name . ".log",
+                    $this->conf->get('log.file.log_max_files'),
+                    $this->conf->get('log.log_level')));
+                break;
         }
     }
 
@@ -57,16 +57,17 @@ class SwooleServer
      */
     public function start()
     {
-        $this->server = new \swoole_server($this->conf->get('server.listen'), $this->conf->get('server.port'));
-        $this->getServer()->on('start', [$this,'onStart']);
-        $this->getServer()->on('workerStart', [$this,'onWorkerStart']);
-        $this->getServer()->on('workerStop', [$this,'onWorkerStop']);
-        $this->getServer()->on('receive', [$this,'onReceive']);
-        $this->getServer()->on('task', [$this,'onTask']);
+        $this->server = new \swoole_server($this->conf->get('ports.server.socket_name'), $this->conf->get('ports.server.socket_port'));
+        $this->setServer();
+        $this->getServer()->on('start', [$this, 'onStart']);
+        $this->getServer()->on('workerStart', [$this, 'onWorkerStart']);
+        $this->getServer()->on('workerStop', [$this, 'onWorkerStop']);
+        $this->getServer()->on('receive', [$this, 'onReceive']);
+        $this->getServer()->on('task', [$this, 'onTask']);
         //$this->getServer()->on('ManagerStart', [$this,'onManagerStart']);
         //$this->getServer()->on('ManagerStop', [$this,'onManagerStop']);
-        $this->getServer()->on('finish', [$this,'onFinish']);
-        $this->getServer()->on('close', [$this,'onClose']);
+        $this->getServer()->on('finish', [$this, 'onFinish']);
+        $this->getServer()->on('close', [$this, 'onClose']);
         $this->beforeSwooleStart();
         $this->getServer()->start();
     }
@@ -76,6 +77,12 @@ class SwooleServer
         return $this->server;
     }
 
+    public function setServer()
+    {
+        $set = $this->config->get('server.set');
+        $set['daemonize'] = Start::getDaemonize();
+        $tshi->server->set($set);
+    }
 
     public function onStart(\swoole_server $server)
     {
@@ -103,7 +110,7 @@ class SwooleServer
 
     public function onTask(\swoole_server $server, int $task_id, int $worker_id, $data)
     {
-        return ;
+        return;
     }
 
     public function onReceive(\swoole_server $server, int $fd, int $reactor_id, string $data)
@@ -128,7 +135,6 @@ class SwooleServer
         // to do
     }
 
-
     private function __clone()
     {
         // to do
@@ -137,8 +143,8 @@ class SwooleServer
     public function checkErrors()
     {
         $error = error_get_last();
-        if(isset($error['type'])){
-            if(in_array($error['type'],[E_ERROR])){
+        if (isset($error['type'])) {
+            if (in_array($error['type'], [E_ERROR])) {
 
             }
         }

@@ -8,6 +8,11 @@
 
 $config = [
     'ports' => [
+        'server'=>[
+            'socket_type' => SWOOLE_SOCK_TCP,
+            'socket_name' => '0.0.0.0',
+            'socket_port' => 9501,
+        ],
         'http'=>[
             'socket_type' => '',
             'socket_name' => '0.0.0.0',

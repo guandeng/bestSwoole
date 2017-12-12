@@ -73,4 +73,9 @@ class Start
     {
         self::$_worker = $swooleServer;
     }
+
+    public static function getDaemonize()
+    {
+        return self::$daemonize ? 1 : 0;
+    }
 }
