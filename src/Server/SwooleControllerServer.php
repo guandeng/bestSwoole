@@ -10,12 +10,19 @@ namespace Server;
 
 abstract class SwooleControllerServer extends SwooleHttpServer
 {
+    private static $instance;
     public function __construct()
     {
+        self::$instance = & $this;
         parent::__construct();
-        if(!checkExtension()){
+        if (!checkExtension()) {
             exit(-1);
         }
+    }
+
+    public static function &get_instance()
+    {
+        return self::$instance;
     }
 
     public function start()

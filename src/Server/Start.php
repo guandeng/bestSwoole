@@ -11,6 +11,7 @@ namespace Server;
 class Start
 {
     protected static $_worker;
+    protected static $daemonize=false;
 
     public static function run()
     {
@@ -34,6 +35,8 @@ class Start
         if (!isset($argv[1])) {
             exit("please use start|stop|kill|reload|restart\n");
         }
+        $server_name = getServerName();
+        $manager_pid = exec("ps -ef | grep $server_name-Manager| grep -v 'grep '| awk '{print $2}'");
         $command = trim($argv[1]);
         $options = $argv[2] ?? '';
         switch ($command) {
@@ -47,9 +50,12 @@ class Start
                 // to do;
                 break;
             case 'reload':
-                // to do
+                posix_kill($manager_pid, SIGUSR1);
                 break;
             case 'restart':
+                break;
+            default:
+                exit("please use start|stop|kill|reload|restart\n");
                 break;
         }
     }
@@ -59,7 +65,8 @@ class Start
         $config = self::$_worker->conf;
         echo "\033[1A\n\033[K------------------------\033[47;30m server \033[0m---------------------------\n\033[0m" . "\n";
         echo "start success\n";
-        echo "PHP version:", SWOOLE_VERSION . "\n";
+        echo "PHP version:", PHP_VERSION . "\n";
+        echo "SWOOLE version:", SWOOLE_VERSION . "\n";
         echo 'worker_num: ', $config->get('server.set.worker_num', 0), "\t\t\t";
         echo 'task_num: ', $config->get('server.set.task_worker_num', 0), "\n";
         echo "\033[1A\n\033[K------------------------\033[47;30m server \033[0m---------------------------\n\033[0m" . "\n";
@@ -77,5 +84,21 @@ class Start
     public static function getDaemonize()
     {
         return self::$daemonize ? 1 : 0;
+    }
+
+    public static function setProcessName($title)
+    {
+        if (PHP_OS == 'Darwin') {
+            return;
+        }
+        /**
+         * swoole_set_process_name兼容性比cli_set_process_title要差，
+         * 如果存在cli_set_process_title函数则优先使用cli_set_process_title。
+         */
+        if (function_exists('cli_set_process_title')) {
+            @cli_set_process_title($title);
+        } else {
+            @swoole_set_process_name($title);
+        }
     }
 }

@@ -6,6 +6,10 @@
  * @Last Modified time: 2017-12-01 00:08:47
  */
 
+function get_instance()
+{
+    return \Server\SwooleControllerServer::get_instance();
+}
 function getConfigDir()
 {
     return CONFIG_PATH;
@@ -36,3 +40,9 @@ function _echo($title, $message)
     print($message);
     ob_end_clean();
 }
+
+function getServerName()
+{
+    return get_instance()->config['name'] ?? 'BD';
+}
+

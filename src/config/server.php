@@ -11,7 +11,6 @@ $config = [
     'server' => [
         'send_use_task_num' => 20,
         'set' => [
-            'max_connection' =>10000,
             'reactor_num' => 4,
             'worker_num' => 4,
             'log_file' => LOG_PATH . '/swoole.log',
@@ -21,7 +20,7 @@ $config = [
             'log_level' => 5,
             'reactor_num' => 4,
             'task_worker_num' => 10,
-            'max_connection' => 50000,
+            'max_connection' => 5000,
             'dispatch_mode' => 2,
         ],
     ],

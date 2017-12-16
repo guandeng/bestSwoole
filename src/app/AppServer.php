@@ -12,7 +12,7 @@ use Server\SwooleControllerServer;
 
 class AppServer extends SwooleControllerServer
 {
-    public function contruct()
+    public function __construct()
     {
         parent::__construct();
     }

@@ -64,8 +64,9 @@ class SwooleServer
         $this->getServer()->on('workerStop', [$this, 'onWorkerStop']);
         $this->getServer()->on('receive', [$this, 'onReceive']);
         $this->getServer()->on('task', [$this, 'onTask']);
-        //$this->getServer()->on('ManagerStart', [$this,'onManagerStart']);
-        //$this->getServer()->on('ManagerStop', [$this,'onManagerStop']);
+        $this->getServer()->on('shutdown', [$this, 'onShutDown']);
+        $this->getServer()->on('ManagerStart', [$this,'onManagerStart']);
+        $this->getServer()->on('ManagerStop', [$this,'onManagerStop']);
         $this->getServer()->on('finish', [$this, 'onFinish']);
         $this->getServer()->on('close', [$this, 'onClose']);
         $this->beforeSwooleStart();
@@ -79,11 +80,13 @@ class SwooleServer
 
     public function setServer()
     {
-        $set = $this->config->get('server.set');
+        $set = $this->conf->get('server.set');
         $set['daemonize'] = Start::getDaemonize();
-        $tshi->server->set($set);
+        $this->server->set($set);
     }
-
+    /**
+     *  Master进程管理
+     */
     public function onStart(\swoole_server $server)
     {
         echo 'swoole server started';
@@ -96,6 +99,15 @@ class SwooleServer
     public function beforeSwooleStart()
     {
 
+    }
+
+    public function onManagerStart()
+    {
+        Start::setProcessName(getServerName().'-Manager');
+    }
+
+    public function onManagerStop()
+    {
     }
 
     public function onWorkerStart(\swoole_server $server, int $worker_id)
@@ -116,11 +128,8 @@ class SwooleServer
     public function onReceive(\swoole_server $server, int $fd, int $reactor_id, string $data)
     {
     }
-    public function onManageStart(\swoole_server $server)
-    {
-
-    }
-    public function onManageStop(\swoole_server $server)
+    
+    public function onShutDown(\swoole_server $server)
     {
 
     }

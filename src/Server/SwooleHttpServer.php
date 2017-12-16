@@ -33,7 +33,6 @@ abstract class SwooleHttpServer extends SwooleServer
         $this->server->on('start', [$this, 'onStart']);
         $this->server->on('workerStart', [$this, 'onWorkerStart']);
         $this->server->on('workerStop', [$this, 'onWorkerStop']);
-        $this->server->on('receive', [$this, 'onReceive']);
         $this->server->on('task', [$this, 'onTask']);
         $this->server->on('request', [$this, 'onRequest']);
         $this->server->on('finish', [$this, 'onFinish']);
@@ -41,13 +40,9 @@ abstract class SwooleHttpServer extends SwooleServer
         $this->server->start();
     }
 
-    public function onStart(\swoole_server $server)
-    {
-        echo 'swoole http server started';
-    }
-
     public function onRequest($request, $response)
     {
+        echo $request->server['request_method'];
         echo 'request' . "\n";
     }
 
@@ -62,10 +57,6 @@ abstract class SwooleHttpServer extends SwooleServer
     public function onTask(\swoole_server $server, int $task_id, int $worker_id, $data)
     {
         return;
-    }
-
-    public function onReceive(\swoole_server $server, int $fd, int $reactor_id, string $data)
-    {
     }
 
     public function onFinish(\swoole_server $server, int $task_id, string $data)
