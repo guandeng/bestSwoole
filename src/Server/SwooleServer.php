@@ -166,6 +166,6 @@ class SwooleServer
      */
     public function displayErrorHandler()
     {
-
+        echo 'error';
     }
 }
