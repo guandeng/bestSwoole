@@ -42,8 +42,27 @@ abstract class SwooleHttpServer extends SwooleServer
 
     public function onRequest($request, $response)
     {
-        echo $request->server['request_method'];
-        echo 'request' . "\n";
+        $path_info = explode('/', $request->server['path_info']);
+        if (empty($path_info)) {
+
+        }
+        // 获取模块，控制器，方法
+        $model = (isset($path_info[1]) && !empty($path_info[1])) ? $path_info[1] : 'Home';
+        $controller = (isset($path_info[2]) && !empty($path_info[2])) ? $path_info[2] : 'Index';
+        $method = (isset($path_info[3]) && !empty($path_info[3])) ? $path_info[3] : 'index';
+        try {
+            $class_name = "\\{$model}\\Controller\\$controller";
+            $object = new $class_name;
+            if (!method_exists($object, $method)) {
+                throw new Exception('404');
+            }
+            $result = $object->$method($request, $response);
+            $response->status(200);
+            $response->end($result);
+        } catch (Exception $e) {
+            $response->status(503);
+            $response->end(var_export($e, true));
+        }
     }
 
     public function onWorkerStart(\swoole_server $server, int $worker_id)
