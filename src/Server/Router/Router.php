@@ -10,6 +10,17 @@ namespace Server\Router;
 
 class Router implements RouterInterface
 {
+    public function dispatch()
+    {
+        switch ($routeInfo[0]) {
+            case FastRoute\Dispatcher::NOT_FOUND:
+                break;
+            case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+                break;
+            case FastRoute\Dispatcher::FOUND:
+            break;
+        }
+    }
 
     public function addRouter(RouterCollect $route_collector)
     {
