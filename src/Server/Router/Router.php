@@ -18,7 +18,7 @@ class Router implements RouterInterface
             case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
                 break;
             case FastRoute\Dispatcher::FOUND:
-            break;
+                break;
         }
     }
 
